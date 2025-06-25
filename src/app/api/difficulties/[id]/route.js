@@ -14,5 +14,6 @@ export async function GET(request, { params }) {
     return errorResponse(404, "Difficulty not found");
   }
   const { sessionId, word } = shuffleArray(levels)[0]
-  return jsonResponse({ sessionId, difficulty: difficultyId, wordLenght: word.lenght });
+  console.log(`Session ID: ${sessionId}, Word: ${word}`);
+  return jsonResponse({ sessionId, difficulty: id, wordLenght: word.length });
 }
