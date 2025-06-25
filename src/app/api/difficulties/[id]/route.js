@@ -7,13 +7,12 @@ export async function OPTIONS() {
   return optionsResponse();
 }
 
-
 export async function GET(request, { params }) {
   const { id } = await params;
   const levels = wordsByLevel[id];
   if (!levels) {
     return errorResponse(404, "Difficulty not found");
   }
-  const { sessionId } = shuffleArray(levels)[0]
-  return jsonResponse({ sessionId, difficulty: id });
+  const { sessionId, word } = shuffleArray(levels)[0]
+  return jsonResponse({ sessionId, difficulty: difficultyId, wordLenght: word.lenght });
 }

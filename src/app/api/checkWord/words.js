@@ -496,7 +496,6 @@ export const allWords = [
   ...wordsByLevel['4'],
 ]
 
-
 export function getWordBySessionId(sessionId) {
   return allWords.find(word => word.sessionId === sessionId);
 }

@@ -2,7 +2,6 @@ import NSpell from "nspell";
 import path from 'path';
 import fs from 'node:fs/promises'
 
-
 import { getWordBySessionId } from "./words";
 import { errorResponse, jsonResponse, optionsResponse } from "@/utils/api";
 
