@@ -5,20 +5,20 @@ export const errorResponse = (status, message) => {
   });
 }
 
-export const shuffleArray = (array) => {
-  const newArray = [...array];
-  let currentIndex = newArray.length;
+export const jsonResponse = (data, headers = {}) => {
+  return Response.json(
+    data,
+    { headers: { ...headers, 'Access-Control-Allow-Origin': '*' } },
+  );
+}
 
-  // While there remain elements to shuffle...
-  while (currentIndex != 0) {
-
-    // Pick a remaining element...
-    let randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [newArray[currentIndex], newArray[randomIndex]] = [
-      newArray[randomIndex], newArray[currentIndex]];
-  }
-  return newArray;
+export const optionsResponse = () => {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  })
 }

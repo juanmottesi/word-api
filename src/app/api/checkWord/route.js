@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 
 
 import { getWordBySessionId } from "./words";
-import { errorResponse } from "../../../utils/api";
+import { errorResponse, jsonResponse, optionsResponse } from "@/utils/api";
 
 const spellCheck = async (word) => {
   const aff = await fs.readFile(path.join(process.cwd(), 'public/index.aff'));
@@ -22,6 +22,10 @@ const solutionWithLetter = (letter, index, currentWord) => {
     return 'elsewhere';
   } 
   return 'absent';
+}
+
+export async function OPTIONS() {
+  return optionsResponse();
 }
 
 export async function POST(request) {
@@ -45,5 +49,5 @@ export async function POST(request) {
       solution: solutionWithLetter(letter, index, sessionWord.word),
     }
   })
-  return Response.json(response); 
+  return jsonResponse(response); 
 }

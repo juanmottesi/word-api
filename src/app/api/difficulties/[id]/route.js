@@ -1,5 +1,12 @@
-import { errorResponse, shuffleArray } from "@/utils/api";
+import { errorResponse, jsonResponse, optionsResponse } from "@/utils/api";
+import { shuffleArray } from "@/utils/array";
+
 import { wordsByLevel } from "../../checkWord/words";
+
+export async function OPTIONS() {
+  return optionsResponse();
+}
+
 
 export async function GET(request, { params }) {
   const { id } = await params;
@@ -8,5 +15,5 @@ export async function GET(request, { params }) {
     return errorResponse(404, "Difficulty not found");
   }
   const { sessionId } = shuffleArray(levels)[0]
-  return Response.json({ sessionId, difficulty: id });
+  return jsonResponse({ sessionId, difficulty: id });
 }

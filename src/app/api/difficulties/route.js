@@ -1,5 +1,11 @@
+import { jsonResponse, optionsResponse } from "@/utils/api";
+
+export async function OPTIONS() {
+  return optionsResponse();
+}
+
 export async function GET() {
-  return Response.json([
+  return jsonResponse([
     { id: 1, name: 'Easy' },
     { id: 2, name: 'Medium' },
     { id: 3, name: 'Hard' },
