@@ -1,9 +1,18 @@
-import dictionary from "dictionary-es";
 import NSpell from "nspell";
-import { getWordBySessionId } from "./words";
-import { errorResponse } from "@/utils/api";
+import path from 'path';
+import fs from 'node:fs/promises'
 
-const spell = NSpell(dictionary);
+
+import { getWordBySessionId } from "./words";
+import { errorResponse } from "../../../utils/api";
+
+const spellCheck = async (word) => {
+  const aff = await fs.readFile(path.join(process.cwd(), 'public/index.aff'));
+  const dic = await fs.readFile(path.join(process.cwd(), 'public/index.dic'));
+
+  const spell = NSpell(aff, dic);
+  return spell.correct(word);
+}
 
 const solutionWithLetter = (letter, index, currentWord) => {
   if (currentWord[index] === letter) {
@@ -25,7 +34,7 @@ export async function POST(request) {
   if (!sessionWord) {
     return errorResponse(404, "Session not found");
   }
-  const isCorrect = spell.correct(word);
+  const isCorrect = await spellCheck(word);
   if (!isCorrect) {
     return errorResponse(400, "Incorrect word");
   }
