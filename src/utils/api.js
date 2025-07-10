@@ -1,7 +1,7 @@
 export const errorResponse = (status, message) => {
   return new Response(JSON.stringify({ message }), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' },
   });
 }
 
